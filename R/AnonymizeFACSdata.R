@@ -66,7 +66,7 @@ AnonymizeFACSdata=function(){
           })
         })
         globalVars$DataListe=DataListe
-        print(globalVars$DataListe$Extension)
+        #print(globalVars$DataListe$Extension)
         # try({
         # globalVars$currentpath=dirname(input$dataInput$datapath)
         # setwd(globalVars$currentpath)
@@ -101,7 +101,7 @@ AnonymizeFACSdata=function(){
       content = function(file) {
         # convert the Output to a proper .fcs format
         tryCatch({
-          print(globalVars$DataListe$Extension)
+          #print(globalVars$DataListe$Extension)
           if(globalVars$DataListe$Extension=='fcs'){
             WriteFCS_Anonymized(file,RawFrame = globalVars$DataListe$RawData,AnnotatedDF = globalVars$DataListe$AnnotatedDataFrame,Header = globalVars$DataListe$Header,shiny = TRUE)
           }else{
