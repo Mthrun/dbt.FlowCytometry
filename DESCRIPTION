@@ -7,7 +7,7 @@ Author: c(person("Michael", "Thrun", email= "m.thrun@gmx.net",role=c("aut","cre"
 Maintainer: Michael Thrun <m.thrun@gmx.net>
 Description: Databionics Toolbox for the Analysis of Fluorescence-Activated Cell Sorting (FACS) Data.
 Imports: flowCore, shiny, shinyjs
-Suggests: pracma, caTools, DataVisualizations, ABCanalysis, stringi, FCPS, tools
+Suggests: pracma, caTools, tools
 License: GPL-3
 Encoding: UTF-8
 Depends: R (>= 3.5)

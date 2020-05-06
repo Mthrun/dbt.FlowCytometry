@@ -106,7 +106,12 @@ AnonymizeFACSdata=function(){
             WriteFCS_Anonymized(file,RawFrame = globalVars$DataListe$RawData,AnnotatedDF = globalVars$DataListe$AnnotatedDataFrame,Header = globalVars$DataListe$Header,shiny = TRUE)
           }else{
             adf=globalVars$DataListe[[2]]$AnnotatedDataFrame
-            adf@data$desc=globalVars$DataListe[[1]]$AnnotatedDataFrame@data$desc
+            desc=globalVars$DataListe[[1]]$AnnotatedDataFrame@data$desc
+            desc=gsub(pattern = 'LIN','',desc)
+            desc=gsub(pattern = 'LOG','',desc)
+            desc=gsub(pattern = 'INT','',desc)
+            desc=gsub(pattern = 'A','',desc)
+            adf@data$desc=desc
             WriteFCS_Anonymized(file,RawFrame = globalVars$DataListe[[2]]$RawData,AnnotatedDF = adf,Header = globalVars$DataListe[[1]]$Header)
           }
           output$info <- renderText({
