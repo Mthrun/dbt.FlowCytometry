@@ -42,7 +42,7 @@ Requires flowCore package to be installed to work
 \item{Spillover}{spillovermatrix dxd used of kompensation}
 \item{AnnotatedDataFrame}{see \pkg{Biobase} AnnotatedDataFrame}
 \item{RawData}{object of class flowFrame, see \code{\link[flowCore]{read.FCS}} in \pkg{flowCore}}
-\item{Extension}{usedl in shiny application otherwise irrelevant}
+\item{Extension}{used in shiny application otherwise irrelevant}
 
 if *.lmd then a list element per stored file with the content above is generated
 }

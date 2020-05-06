@@ -15,7 +15,7 @@ AnonymizeFACSdata()
 If *.lmd format is chosen, marburg style is assumed. This means the spillover matrix and the data is in the second dataset but the names of the parameters in the first dataset. Otherwise please use \code{\link{ReadFCS_FlowCompensated}} and \code{\link{WriteFCS_Anonymized}} manually.
 }
 \value{
-and *.fcs file is written out
+a *.fcs file is written out
 }
 \references{
 \url{http://www.deepbionics.org}

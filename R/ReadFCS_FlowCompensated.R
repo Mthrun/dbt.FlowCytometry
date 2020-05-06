@@ -13,18 +13,24 @@ ReadFCS_FlowCompensated=function(Filename,InDirectory=getwd(),Extension,shiny=FA
   # OPTIONAL
   # InDirectory          directory where *.fcs or lmd file is  (default ==  getwd() )
   #
+  # Extension				fcs or lmd manual setting as character
+  # shiny					only for interactve output
   # OUTPUT  list with:
   # Data[1:n,1:d]           array of data: n cases in rows, d variables in columns
   # Key[1:n]                key corresponding to the rows of Data(better be unique)
   # Header[1:d,]            variable names, corresponding to the feature columns of Data, na otherwise
   # LaserDescriptions[1:d]  variable names, corresponding to the lasers of Data
-  #
-  # Comments                further comments stored in fcs file
-  #
+  # Comments					all accessible information}
+  # Spillover					spillovermatrix dxd used of kompensation}
+  # AnnotatedDataFrame			see \pkg{Biobase} AnnotatedDataFrame}
+  # RawData							object of class flowFrame, see \code{\link[flowCore]{read.FCS}} in \pkg{flowCore}}
+  # Extension					used in shiny application otherwise irrelevant
   # author: MT 03/2020
   # edited 05/2020
 
   #warning('Please use ReadFCS function')
+  
+  #typical error catching ----
   if(!requireNamespace('flowCore')){
     warning('ReadFCS_FlowCompensated: Please Install Flowcore package')
     return('ReadFCS_FlowCompensated: Please Install Flowcore package')
@@ -53,7 +59,7 @@ ReadFCS_FlowCompensated=function(Filename,InDirectory=getwd(),Extension,shiny=FA
 
   path_prio=getwd()
   setwd(InDirectory)
-
+#what extension do we have, on that depends what dataio has to be used
   if(Extension=="fcs"){
     Frame2=flowCore::read.flowSet(Filename)
     setwd(path_prio)
@@ -61,16 +67,18 @@ ReadFCS_FlowCompensated=function(Filename,InDirectory=getwd(),Extension,shiny=FA
     V=c(V,list(Extension=Extension))
     return(V)
   }else{#lmd extension
-    useDataset=1
+    useDataset=1 #number of data sets
     Frame1 = flowCore::read.FCS(Filename, dataset = 1)
     message('Dataset No.',useDataset,' loaded.')
     Frame2=c()
-    #load all files in a list
+    #load all files in a list, nextdata stores the pointer to the next data, if it exists
     if(!is.null(Frame1@description$`$NEXTDATA`)){
+	#if more than one prepare list of frames
       if(Frame1@description$`$NEXTDATA`!=0){
         message('More than one dataset found.')
         Frame2=list(Frame1)
       }
+	  #load all frames
       while(Frame1@description$`$NEXTDATA`!=0){#indicates how many
 
         useDataset = useDataset + 1
@@ -92,12 +100,13 @@ ReadFCS_FlowCompensated=function(Filename,InDirectory=getwd(),Extension,shiny=FA
     }
   }#end if fcs
 }
-
+#nternal function doing the real preprocesssing indepently on the extension
 prepareOneFCS=function(flowCoreFrame,i){
   RawData=flowCoreFrame
   spill=NULL
   tryCatch({#spillover does not exist always in lmd data
     Comp_List=flowCore::spillover(flowCoreFrame)
+	#kompensations matrix can be stored in one of many list elements, other are than null
     ind=which(!unlist(lapply(Comp_List,is.null)))
     if(length(ind)>0){
       spill=Comp_List[[ind]]
@@ -108,25 +117,31 @@ prepareOneFCS=function(flowCoreFrame,i){
   },error=function(e){
     message('ReadFCS_FlowCompensated In No. ',i,': ',e)
   })
+  #raw data storage
   data = as.matrix(flowCoreFrame@exprs)
+  #raw comments, all personal information is stored here
   Comments=flowCoreFrame@description
   DataColNames=colnames(data)
   Key=rownames(data)
   mode(data)="numeric"
   data_raw= data
   Header=rep(NA,dim(data)[2])
+  
+  #relevant information of biomarker names and laser names is stored here
   AnnotatedDataFrame=NULL
   try({
     AnnotatedDataFrame=flowCoreFrame@parameters
 
   })
+  
+  #we extract it as stated in th vignette
   LaserDescriptions = flowCore::featureNames(flowCoreFrame)
-
+#biomarker  names
   Header=AnnotatedDataFrame@data$desc
   # if(!all(colnames(data)==varNames)){
   #   message('ReadFCS_FlowCompensated In No. ',i,': Featurenames in Frame@description does not match columnnames in Frame@expr')
   # }
-  #die komplizierte variance, if one does not read the goddamn manual :-D
+  #die komplizierte variante, if one does not read the goddamn manual :-D
   # tryCatch({
   #   AddressToDescr=flowCore::keyword(flowCoreFrame)
   #   if(requireNamespace('stringi')){

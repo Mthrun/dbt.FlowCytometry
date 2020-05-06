@@ -22,7 +22,7 @@ name for *.fcs file
 see \pkg{Biobase} AnnotatedDataFrame
 }
   \item{Header}{
-1:d names for the features of the data stored in RawFrame
+Optional, character vector of 1:d  describing the names for the features of the data stored in RawFrame
 }
   \item{OutDirectory}{
 Optional, directory where to write out the *.fcs  (default ==  getwd() )

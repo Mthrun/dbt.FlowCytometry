@@ -1,10 +1,26 @@
 AnonymizeFACSdata=function(){
+#AnonymizeFACSdata()
+#Anonymize FACS data
+#Interactive tool for Anonymization of FACS data (either *.fcs or *.lmd)
 
+#INPUT
+# none
+#OUTPUT
+# an *.fcs file is written out
+#
+#
+#If *.lmd format is chosen, marburg style is assumed. This means the spillover matrix and the data is in the second dataset but the names of the parameters in the first dataset. Otherwise please use \code{\link{ReadFCS_FlowCompensated}} and \code{\link{WriteFCS_Anonymized}} manually.
+
+#author: Michael Thrun
+
+
+
+# technical note: Due to security reasons the output file path cannot be the file input path with usual shiny. However, in a future version shinyFiles could be used so that the choice for output file paht is automatically the same that input file path
 
   #library(shiny)
   #library(shinyjs)
   #library(shinyFiles) #ToDo
-  # in the running environment.
+  # in the running environment global vars to be used
   globalVars <- reactiveValues(
     DataListe = NULL,
     currentpath=NULL #used later in shinyFiles
@@ -12,13 +28,13 @@ AnonymizeFACSdata=function(){
 
   ## Shiny Oberflaeche ----
 
-  # Define UI for application that draws a histogram
+  # Define UI for application
   uifacs <- fluidPage(
 
     # Application title
     titlePanel("Anonymize FACS Data"),
 
-    # Sidebar with a slider input for number of bins
+    # Sidebar with a slider input for loading data and exit
     sidebarLayout(
       sidebarPanel(
         disabled(downloadButton(
@@ -32,7 +48,7 @@ AnonymizeFACSdata=function(){
                      icon = icon("window-close"))
       ),
 
-      # Show a plot of the generated distribution
+      # Show text output to user what happens, or errors warnings
       mainPanel(
         fileInput(
           inputId = "dataInput",
@@ -46,7 +62,7 @@ AnonymizeFACSdata=function(){
     )
   )
 
-  # Define server logic required to draw a histogram
+  # Define server logic 
   serverfacs <- function(input, output, session) {
     #1GB limit
     options(shiny.maxRequestSize=1024*1024^2)
@@ -105,8 +121,10 @@ AnonymizeFACSdata=function(){
           if(globalVars$DataListe$Extension=='fcs'){
             WriteFCS_Anonymized(file,RawFrame = globalVars$DataListe$RawData,AnnotatedDF = globalVars$DataListe$AnnotatedDataFrame,Header = globalVars$DataListe$Header,shiny = TRUE)
           }else{
+		  #uebername der korrekten variablen bezeichnung aus erstem datensatz in 2ten datensatz
             adf=globalVars$DataListe[[2]]$AnnotatedDataFrame
             desc=globalVars$DataListe[[1]]$AnnotatedDataFrame@data$desc
+			#wir wissen dann aber nichtmehr ob lin log usw, alsoe info loeschen
             desc=gsub(pattern = 'LIN','',desc)
             desc=gsub(pattern = 'LOG','',desc)
             desc=gsub(pattern = 'INT','',desc)
@@ -137,7 +155,7 @@ AnonymizeFACSdata=function(){
 
   }#end server
 
-
+#run the app as a function
   outputApp=runApp(list(ui = uifacs, server = serverfacs))
 return(outputApp)
 }
