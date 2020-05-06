@@ -1,0 +1,8 @@
+exportPattern("^[[:upper:]]+")
+
+import(shiny)
+
+importFrom("graphics", "legend", "plot", "points")
+importFrom("utils", "choose.files")
+importFrom("tools", "file_ext")
+importFrom("shinyjs", "disabled","enable")
