@@ -5,11 +5,10 @@
 WriteFCS Anonymized
 }
 \description{
-Anonymizes data by writing out fcs data with a specific selection of content
+Anonymizes data by writing out fcs data with a specific selection of content.
 }
 \usage{
 WriteFCS_Anonymized(Filename, RawFrame, AnnotatedDF,
-
 Header = NULL,OutDirectory = getwd(), shiny=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -21,21 +20,22 @@ name for *.fcs file
   \item{AnnotatedDF}{
 see \pkg{Biobase} AnnotatedDataFrame
 }
+
   \item{Header}{
-Optional, character vector of 1:d  describing the names for the features of the data stored in RawFrame
+Optional, a 1:d character vector containing the names of the features of the data stored in the RawFrame
 }
   \item{OutDirectory}{
-Optional, directory where to write out the *.fcs  (default ==  getwd() )
+Optional, Output directory for the newly created *.fcs  (default ==  getwd() )
 }
   \item{shiny}{
-Optional, shiny =TRUE disabled several checks not useful in interaxtive application
+Optional, shiny =TRUE disabled several checks that are not useful in the interactive application.
 }
 }
 \details{
-AnnotatedDF is internally stored in RawFrame, but using it externally, allowes the user to change the parameter names manually in AnnotatedDF
+The AnnotatedDF is stored internally in RawFrame, but using it externally, allows the user to change the parameter names manually in AnnotatedDF.
 }
 \value{
-an *.fcs file is written out
+an *.fcs file is written out.
 }
 \references{
 the manual
@@ -51,7 +51,6 @@ none
 \code{\link{WriteFCS_Anonymized}},\code{\link[flowCore]{read.FCS}}
 }
 \examples{
-##TODo
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
