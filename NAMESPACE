@@ -1,4 +1,6 @@
 exportPattern("^[[:upper:]]+")
+export(predict_model.rfsrc)
+export(model_type.rfsrc)
 
 import(shiny)
 

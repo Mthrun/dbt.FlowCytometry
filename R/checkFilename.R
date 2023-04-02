@@ -16,7 +16,7 @@ checkFilename=function(FileName,Directory=getwd(),Extension,ReadOrWrite,NameOfFu
 # Bricht mit Fehlermeldung die Ein/AusleseProzedure ab, wenn mit Dateiname/Directory etwas nicht stimmt
 
 # author: MT 06/2015
-  FileName;
+  FileName 
   if(is.null(FileName))
     stop('Filename is null/does not exist, please use a string as a filename')
   

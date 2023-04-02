@@ -1,13 +1,13 @@
 Package: dbt.FlowCytometry
 Type: Package
 Title: Databionics Toolbox for the Analysis of Fluorescence-Activated Cell Sorting (FACS) Data
-Version: 0.0.3
-Date: 2020-05-06
-Authors@R:  c(person("Michael", "Thrun", email= "m.thrun@gmx.net",role=c("aut","cre","cph"), comment = c(ORCID = "0000-0001-9542-5543")),person("Tim", "Schreier",role=c("ctr","ctb")))
+Version: 0.1.1
+Date: 2023-01-01
+Authors@R:  c(person("Michael", "Thrun", email= "m.thrun@gmx.net",role=c("aut","cre","cph"), comment = c(ORCID = "0000-0001-9542-5543")),person("Tim", "Schreier",role=c("ctr","ctb")),person("Joern", "Loetsch",role=c("ctb")))
 Maintainer: Michael Thrun <m.thrun@gmx.net>
 Description: Databionics Toolbox for the Analysis of Fluorescence-Activated Cell Sorting (FACS) Data.
-Imports: flowCore, shiny, shinyjs, stringi
-Suggests: pracma, caTools, tools
+Imports: flowCore, shiny, shinyjs, stringi, DataVisualizations
+Suggests: flowType, xtable, pracma, caTools, tools, lime, Classifiers, stringr,flowDensity, citrus
 License: GPL-3
 Encoding: UTF-8
 Depends: R (>= 3.5)
