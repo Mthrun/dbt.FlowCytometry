@@ -42,7 +42,7 @@ ApplyGate=function(Data,GateVar1,GateVar2,Polygon,PlotIt=FALSE,PlotSampleSize=10
   GateData=cbind(X,Y)
 
   if(dim(GateData)[2]){
-    InGateCls=Classifiers::PointsInPolygon(GateData,Polygon = Polygon,PlotIt = F)
+    InGateCls=ScatterDensity::PointsInPolygon(GateData,Polygon = Polygon,PlotIt = F)
     ind=which(InGateCls==2)
     DataInGate=Data[ind,]
     if(isTRUE(PlotIt)){
@@ -58,7 +58,7 @@ ApplyGate=function(Data,GateVar1,GateVar2,Polygon,PlotIt=FALSE,PlotSampleSize=10
         ylab=GateVar2
 
       XYlab=colnames(GateDataSample)
-      Classifiers::PointsInPolygon(GateDataSample,Polygon = Polygon,
+      ScatterDensity::PointsInPolygon(GateDataSample,Polygon = Polygon,
                                                  PlotIt = T,main = "Yellow = In Gate",xlab=xlab,ylab=ylab)
     }
     return(list(DataInGate=DataInGate,InGateInd=ind))

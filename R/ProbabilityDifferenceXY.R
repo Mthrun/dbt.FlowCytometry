@@ -33,15 +33,15 @@ ProbabilityDifferenceXY=function(X,Y,Cls,MinPercentage=0.02,nbins=200,lambda=20,
 # nbins = 200      # Anzahl bins in X, Y direction
 # lambda = 20     end  # smoothing factor used by the density estimator
   if(missing(Xkernels)&missing(Xkernels)){# gemeinsames 2DHistogram fuer Xkernels,Ykernels
-   V=SmoothedDensitiesXY(X,Y,nbins)
+   V=ScatterDensity::SmoothedDensitiesXY(X,Y,nbins)
    Xkernels=V$Xkernels
    Ykernels=V$Ykernels
   }else if(missing(Xkernels)){
-    V=SmoothedDensitiesXY(X,Y,nbins)
+    V=ScatterDensity::SmoothedDensitiesXY(X,Y,nbins)
     Xkernels=V$Xkernels
 
   }else if(missing(Ykernels)){
-    V=SmoothedDensitiesXY(X,Y,nbins)
+    V=ScatterDensity::SmoothedDensitiesXY(X,Y,nbins)
 
     Ykernels=V$Ykernels
   }else{
@@ -56,13 +56,13 @@ X2 = X[Cls2ind]
 Y2 = Y[Cls2ind]                    # XY alle anderen Klassen
 
 
-V= SmoothedDensitiesXY(X1,Y1,nbins,lambda,Xkernels,Ykernels)  # 2DHistogram 1
+V= ScatterDensity::SmoothedDensitiesXY(X1,Y1,nbins,lambda,Xkernels,Ykernels)  # 2DHistogram 1
 XYdens4Data1 = V$Densities
 Xkernels1 = V$Xkernels
 Ykernels1 = V$Ykernels
 Hist1 = V$hist_F_2D
 
-V = SmoothedDensitiesXY(X2,Y2,nbins,lambda,Xkernels,Ykernels)  # 2DHistogram 2
+V = ScatterDensity::SmoothedDensitiesXY(X2,Y2,nbins,lambda,Xkernels,Ykernels)  # 2DHistogram 2
 XYdens4Data2 = V$Densities
 Xkernels2 = V$Xkernels
 Ykernels2 = V$Ykernels

@@ -22,7 +22,7 @@ if(missing(Cls)){ # do a 3D surface plot
   Ykernels=V$Ykernels
   Fsmooth1D=V$Fsmooth1D
 }else{ # CLS given
-  V= SmoothedDensitiesXY(X,Y)  # Dichte Ausrechnen using Smothed Histograms
+  V= ScatterDensity::SmoothedDensitiesXY(X,Y)  # Dichte Ausrechnen using Smothed Histograms
   Density=V$Density
   Xkernels=V$Xkernels
   Ykernels=V$Ykernels
